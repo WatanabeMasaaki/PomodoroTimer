@@ -7,6 +7,8 @@
 
 import Foundation
 import Combine
+import AVFoundation
+import UIKit
 
 class TimerModel: ObservableObject {
     //count...開始から何秒　timeLimit...全体の時間（秒）
@@ -14,10 +16,7 @@ class TimerModel: ObservableObject {
     @Published var timeLimit: Int = 0
     @Published var remaining: Int = 0
     @Published var timer: AnyCancellable!
-    
-    //sessionCount...セッション開始から何秒　sessionLimit...セッションの時間（秒）
-//    @Published var sessionCount: Int = 0
-//    @Published var sessionLimit: Int = 0
+    let interval: Double = 1
     
     //実際に画面に映し出す情報
     @Published var cycleStr: String = "1"
@@ -25,10 +24,22 @@ class TimerModel: ObservableObject {
     @Published var secStr: String = "00"
     @Published var isFocus: Bool = true
     
-    let interval: Double = 1
-    var soundFlg: Bool = false
+    //オーディオ関係
+    private let chime = try! AVAudioPlayer(data: NSDataAsset(name: "jihou-sine-3f")!.data)
     
-    func timerStart(focusTime: Int = 25, restTime: Int = 5, cycles: Int = 4){
+    private func playChime() {
+        chime.stop()
+        chime.currentTime = 0.0
+        chime.play()
+    }
+    
+    private func stopChime() {
+        chime.stop()
+        chime.currentTime = 0.0
+    }
+    
+    //タイマー関係
+    func timerStart(focusTime: Int, restTime: Int, cycles: Int){
         timer = Timer
             .publish(every: interval, on: .main, in: .common)
             .autoconnect()
@@ -43,6 +54,11 @@ class TimerModel: ObservableObject {
                 var remainCount = self.isFocus ?
                 focusTime * 60  - (self.count % ((focusTime + restTime) * 60)) :
                 restTime * 60 - (self.count % ((focusTime + restTime) * 60) - focusTime * 60)
+                
+                if remainCount == 4 {
+                    self.playChime()
+                }
+                
                 var secRemain = remainCount % 60
                 var minRemain = remainCount / 60
                 
@@ -58,7 +74,7 @@ class TimerModel: ObservableObject {
             })
     }
     
-    func start(focusTime: Int = 25, restTime: Int = 5, cycles: Int = 4){
+    func start(focusTime: Int, restTime: Int, cycles: Int){
         //countに0を入れて１秒ごとに加算する
         count = 0
         timeLimit = ((focusTime + restTime) * cycles - restTime) * 60
@@ -70,13 +86,14 @@ class TimerModel: ObservableObject {
         timerStart(focusTime: focusTime, restTime: restTime, cycles: cycles)
     }
     
-    func resume(focusTime: Int = 25, restTime: Int = 5, cycles: Int = 4) {
+    func resume(focusTime: Int, restTime: Int, cycles: Int) {
         timerStart(focusTime: focusTime, restTime: restTime, cycles: cycles)
     }
     
     func stop(){
         timer?.cancel()
         timer = nil
+        self.stopChime()
     }
     
     

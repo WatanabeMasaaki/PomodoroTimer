@@ -23,6 +23,7 @@ struct SettingView: View {
                 VStack {
                     Text("集中時間: \(Int(focusTime))分")
                         .font(.title2)
+                        .foregroundColor(Color.black)
                     Slider(value: $focusTime, in: 1...120, step: 1)
                         .padding(.leading, 30)
                         .padding(.trailing, 30)
@@ -30,6 +31,7 @@ struct SettingView: View {
                     
                     Text("休憩時間: \(Int(restTime))分")
                         .font(.title2)
+                        .foregroundColor(Color.black)
                     Slider(value: $restTime, in: 1...30, step: 1)
                         .padding(.leading, 30)
                         .padding(.trailing, 30)
@@ -37,6 +39,7 @@ struct SettingView: View {
                     
                     Text("サイクル: \(Int(cycles))回")
                         .font(.title2)
+                        .foregroundColor(Color.black)
                     Slider(value: $cycles, in: 1...20, step: 1)
                         .padding(.leading, 30)
                         .padding(.trailing, 30)
@@ -44,6 +47,7 @@ struct SettingView: View {
                     
                     Text("所要時間: \(Int((focusTime + restTime) * cycles - restTime))分")
                         .font(.title3)
+                        .foregroundColor(Color.black)
                         .padding(.bottom, 50)
 
                     

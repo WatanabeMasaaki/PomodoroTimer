@@ -13,6 +13,8 @@ struct TimerView: View {
     var restTime : Int
     var cycles : Int
     @State var isTimerStop = true
+    //このisTimerStartedは初めてスタートボタンが押されて以降trueになる
+    @State var isTimerStarted = false
     @State var count: Int
     
     init(focusTime: Int, restTime: Int, cycles: Int) {
@@ -30,24 +32,30 @@ struct TimerView: View {
             VStack {
                 Text("\(timerController.cycleStr)サイクル目")
                     .font(.title)
+                    .foregroundColor(Color.black)
                 Text(timerController.isFocus ? "勉強時間" : "休憩")
                     .font(.title)
+                    .foregroundColor(Color.black)
                 
-                Text("\(timerController.minStr):\(timerController.secStr)")
+                Text(isTimerStarted ?
+                     "\(timerController.minStr):\(timerController.secStr)" :
+                     "\(focusTime):00")
                     .font(.largeTitle)
+                    .foregroundColor(Color.black)
                     .padding()
                 
                 Button(action: {
                     if(timerController.timer == nil){
                         timerController.start(focusTime: focusTime, restTime: restTime, cycles: cycles)
-                        isTimerStop == false
+                        isTimerStop = false
+                        isTimerStarted = true
                     } else {
                         if isTimerStop {
-                            timerController.stop()
-                            isTimerStop == true
-                        } else {
                             timerController.resume(focusTime: focusTime, restTime: restTime, cycles: cycles)
-                            isTimerStop == false
+                            isTimerStop = false
+                        } else {
+                            timerController.stop()
+                            isTimerStop = true
                         }
                     }
                 }, label: {
@@ -65,6 +73,6 @@ struct TimerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(focusTime: 25, restTime: 5, cycles: 4)
+        TimerView(focusTime: 1, restTime: 1, cycles: 2)
     }
 }
