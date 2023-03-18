@@ -19,7 +19,7 @@ class TimerModel: ObservableObject {
     let interval: Double = 1
     
     //一時停止した時点でのcountを入れる（一時停止した後、Startを押すとき最初からになってしまうのを防ぐため）
-    @Published var countHold: Int = 0
+    var countHold: Int = 0
     
     //実際に画面に映し出す情報
     @Published var cycleStr: String = "1"
@@ -27,8 +27,12 @@ class TimerModel: ObservableObject {
     @Published var secStr: String = "00"
     @Published var isFocus: Bool = true
     
+    //通知関係
+    @Published var showAlert: Bool = false
+    
     //オーディオ関係
     private let chime = try! AVAudioPlayer(data: NSDataAsset(name: "jihou-sine-3f")!.data)
+    private let success = try! AVAudioPlayer(data: NSDataAsset(name: "success")!.data)
     
     private func playChime() {
         chime.stop()
@@ -41,6 +45,17 @@ class TimerModel: ObservableObject {
         chime.currentTime = 0.0
     }
     
+    func playSuccess() {
+        success.stop()
+        success.currentTime = 0.0
+        success.play()
+    }
+    
+    func stopSuccess() {
+        success.stop()
+        success.currentTime = 0.0
+    }
+    
     //タイマー関係
     func timerStart(focusTime: Int, restTime: Int, cycles: Int){
         timer = Timer
@@ -50,11 +65,11 @@ class TimerModel: ObservableObject {
             .sink(receiveValue: { _ in
                 self.count += Int(self.interval)
                 
-                var cycle: Int = self.count / ((focusTime + restTime) * 60) + 1
+                let cycle: Int = self.count / ((focusTime + restTime) * 60) + 1
                 self.cycleStr = String(format: "%d", cycle)
                 self.isFocus = ((self.count % ((focusTime + restTime) * 60)) < focusTime * 60) ? true : false
                             
-                var remainCount = self.isFocus ?
+                let remainCount = self.isFocus ?
                 focusTime * 60  - (self.count % ((focusTime + restTime) * 60)) :
                 restTime * 60 - (self.count % ((focusTime + restTime) * 60) - focusTime * 60)
                 
@@ -62,17 +77,23 @@ class TimerModel: ObservableObject {
                     self.playChime()
                 }
                 
-                var secRemain = remainCount % 60
-                var minRemain = remainCount / 60
+                let secRemain = remainCount % 60
+                let minRemain = remainCount / 60
                 
                 self.secStr = String(format: (secRemain < 10 ? "0%d" : "%d"), secRemain)
                 self.minStr = String(format: (minRemain < 10 ? "0%d" : "%d"), minRemain)
                 
+                //全体が終了したとき
                 if (self.timeLimit - self.count <= 0){
                     self.isFocus = true
                     self.secStr = "00"
                     self.minStr = "00"
                     self.timer?.cancel()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.playSuccess()
+                        self.showAlert = true
+                    }
+                    
                 }
             })
     }

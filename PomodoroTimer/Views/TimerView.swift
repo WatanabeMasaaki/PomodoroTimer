@@ -17,6 +17,8 @@ struct TimerView: View {
     @State var isTimerStarted = false
     @State var count: Int
     
+    
+    
     init(focusTime: Int, restTime: Int, cycles: Int) {
         self.focusTime = focusTime
         self.restTime = restTime
@@ -39,7 +41,7 @@ struct TimerView: View {
                 
                 Text(isTimerStarted ?
                      "\(timerController.minStr):\(timerController.secStr)" :
-                     "\(focusTime):00")
+                        "\(String(format: focusTime < 10 ? "0%d" : "%d", focusTime)):00")
                     .font(.largeTitle)
                     .foregroundColor(Color.black)
                     .padding()
@@ -48,7 +50,9 @@ struct TimerView: View {
                     if(timerController.timer == nil){
                         timerController.start(focusTime: focusTime, restTime: restTime, cycles: cycles)
                         isTimerStop = false
-                        isTimerStarted = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            isTimerStarted = true
+                        }
                     } else {
                         if isTimerStop {
                             timerController.resume(focusTime: focusTime, restTime: restTime, cycles: cycles)
@@ -68,6 +72,13 @@ struct TimerView: View {
                 .padding()
             }
         }
+        .alert("よくがんばりました！！", isPresented: $timerController.showAlert, actions: {
+            Button("OK", role: .cancel) {
+                timerController.stopSuccess()
+                
+            }
+        })
+        
     }
 }
 
