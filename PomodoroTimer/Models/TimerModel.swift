@@ -18,6 +18,9 @@ class TimerModel: ObservableObject {
     @Published var timer: AnyCancellable!
     let interval: Double = 1
     
+    //一時停止した時点でのcountを入れる（一時停止した後、Startを押すとき最初からになってしまうのを防ぐため）
+    @Published var countHold: Int = 0
+    
     //実際に画面に映し出す情報
     @Published var cycleStr: String = "1"
     @Published var minStr: String = "00"
@@ -76,7 +79,7 @@ class TimerModel: ObservableObject {
     
     func start(focusTime: Int, restTime: Int, cycles: Int){
         //countに0を入れて１秒ごとに加算する
-        count = 0
+        count = countHold
         timeLimit = ((focusTime + restTime) * cycles - restTime) * 60
         remaining = timeLimit
         if let _timer = timer {
@@ -91,6 +94,7 @@ class TimerModel: ObservableObject {
     }
     
     func stop(){
+        countHold = count
         timer?.cancel()
         timer = nil
         self.stopChime()

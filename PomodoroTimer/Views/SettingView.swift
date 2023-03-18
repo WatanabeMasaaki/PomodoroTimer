@@ -52,7 +52,7 @@ struct SettingView: View {
 
                     
                     NavigationLink {
-                        TimerView(focusTime: Int(focusTime), restTime: Int(restTime), cycles: Int(cycles))
+                        TimerView(focusTime: Int(focusTime), restTime: Int(restTime), cycles: Int(cycles)).navigationBarBackButtonHidden(true)
                     } label: {
                         Label("勉強を始める！", systemImage: "figure.walk")
                             .font(.title)
