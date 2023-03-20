@@ -11,7 +11,6 @@ struct SettingView: View {
     @State var focusTime = 25.0
     @State var restTime = 5.0
     @State var cycles = 4.0
-//    @State var totalTime = (focusTime + restTime) * cycles - restTime
     @State var isEditing = false
     
     var body: some View {
@@ -20,9 +19,12 @@ struct SettingView: View {
                 Color("BackgroundColor")
                     .ignoresSafeArea()
                 
-                VStack {
+                VStack(alignment: .center) {
+                    
+                    Spacer()
+                    
                     Text("集中時間: \(Int(focusTime))分")
-                        .font(.title2)
+                        .font(.system(size: 40, weight: .semibold, design: .rounded))
                         .foregroundColor(Color.black)
                     Slider(value: $focusTime, in: 1...120, step: 1)
                         .padding(.leading, 30)
@@ -30,7 +32,7 @@ struct SettingView: View {
                         .padding(.bottom, 30)
                     
                     Text("休憩時間: \(Int(restTime))分")
-                        .font(.title2)
+                        .font(.system(size: 40, weight: .semibold, design: .rounded))
                         .foregroundColor(Color.black)
                     Slider(value: $restTime, in: 1...30, step: 1)
                         .padding(.leading, 30)
@@ -38,7 +40,7 @@ struct SettingView: View {
                         .padding(.bottom, 30)
                     
                     Text("サイクル: \(Int(cycles))回")
-                        .font(.title2)
+                        .font(.system(size: 40, weight: .semibold, design: .rounded))
                         .foregroundColor(Color.black)
                     Slider(value: $cycles, in: 1...20, step: 1)
                         .padding(.leading, 30)
@@ -46,10 +48,11 @@ struct SettingView: View {
                         .padding(.bottom, 30)
                     
                     Text("所要時間: \(Int((focusTime + restTime) * cycles - restTime))分")
-                        .font(.title3)
+                        .font(.system(size: 25, weight: .semibold, design: .rounded))
                         .foregroundColor(Color.black)
                         .padding(.bottom, 50)
-
+                    
+                    Spacer()
                     
                     NavigationLink {
                         TimerView(focusTime: Int(focusTime), restTime: Int(restTime), cycles: Int(cycles)).navigationBarBackButtonHidden(true)

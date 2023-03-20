@@ -31,20 +31,26 @@ struct TimerView: View {
             Color("BackgroundColor")
                 .ignoresSafeArea()
             
-            VStack {
+            VStack(alignment: .center) {
+                
+                Spacer()
+                
                 Text("\(timerController.cycleStr)サイクル目")
-                    .font(.title)
+                    .font(.system(size: 40, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
-                Text(timerController.isFocus ? "勉強時間" : "休憩")
-                    .font(.title)
+                    .padding(.bottom, -5)
+                Text(timerController.isFocus ? "勉強" : "休憩")
+                    .font(.system(size: 50, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
                 
                 Text(isTimerStarted ?
                      "\(timerController.minStr):\(timerController.secStr)" :
                         "\(String(format: focusTime < 10 ? "0%d" : "%d", focusTime)):00")
-                    .font(.largeTitle)
+                .font(.system(size: 100, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
                     .padding()
+                
+                Spacer()
                 
                 Button(action: {
                     if(timerController.timer == nil){
