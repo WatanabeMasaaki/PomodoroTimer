@@ -59,16 +59,6 @@ struct SettingView: View {
                     NavigationLink {
                         TimerView(focusTime: Int(focusTime), restTime: Int(restTime), cycles: Int(cycles))
                             .navigationBarBackButtonHidden(true)
-//                            .toolbar {
-//                                ToolbarItem(placement: .navigationBarLeading, content: {
-//                                    Button(action: {
-//                                        print("custom action")
-//                                        dismiss()
-//                                    }, label: {
-//                                        Text("戻る")
-//                                    })
-//                                })
-//                            }
                     } label: {
                         Label("勉強を始める！", systemImage: "figure.walk")
                             .font(.title)
