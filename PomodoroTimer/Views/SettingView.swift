@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct SettingView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @State var focusTime = 25.0
     @State var restTime = 5.0
     @State var cycles = 4.0
@@ -55,7 +57,18 @@ struct SettingView: View {
                     Spacer()
                     
                     NavigationLink {
-                        TimerView(focusTime: Int(focusTime), restTime: Int(restTime), cycles: Int(cycles)).navigationBarBackButtonHidden(true)
+                        TimerView(focusTime: Int(focusTime), restTime: Int(restTime), cycles: Int(cycles))
+                            .navigationBarBackButtonHidden(true)
+//                            .toolbar {
+//                                ToolbarItem(placement: .navigationBarLeading, content: {
+//                                    Button(action: {
+//                                        print("custom action")
+//                                        dismiss()
+//                                    }, label: {
+//                                        Text("戻る")
+//                                    })
+//                                })
+//                            }
                     } label: {
                         Label("勉強を始める！", systemImage: "figure.walk")
                             .font(.title)

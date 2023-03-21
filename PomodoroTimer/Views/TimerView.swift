@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct TimerView: View {
+    @Environment (\.dismiss) private var dismiss
+    
     @ObservedObject var timerController = TimerModel()
     var focusTime : Int
     var restTime : Int
@@ -15,16 +17,6 @@ struct TimerView: View {
     @State var isTimerStop = true
     //このisTimerStartedは初めてスタートボタンが押されて以降trueになる
     @State var isTimerStarted = false
-    @State var count: Int
-    
-    
-    
-    init(focusTime: Int, restTime: Int, cycles: Int) {
-        self.focusTime = focusTime
-        self.restTime = restTime
-        self.cycles = cycles
-        count = ((self.focusTime + self.restTime) * self.cycles - self.restTime) * 60
-    }
     
     var body: some View {
         ZStack {
@@ -32,6 +24,13 @@ struct TimerView: View {
                 .ignoresSafeArea()
             
             VStack(alignment: .center) {
+                
+                Button(action: {
+                    timerController.timer = nil
+                    dismiss()
+                }, label: {
+                    Text("戻る")
+                })
                 
                 Spacer()
                 
@@ -81,10 +80,9 @@ struct TimerView: View {
         .alert("よくがんばりました！！", isPresented: $timerController.showAlert, actions: {
             Button("OK", role: .cancel) {
                 timerController.stopSuccess()
-                
+                dismiss()
             }
         })
-        
     }
 }
 
