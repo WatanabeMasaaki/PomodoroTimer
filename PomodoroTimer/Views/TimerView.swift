@@ -59,13 +59,8 @@ struct TimerView: View {
                             isTimerStarted = true
                         }
                     } else {
-                        if isTimerStop {
-                            timerController.resume(focusTime: focusTime, restTime: restTime, cycles: cycles)
-                            isTimerStop = false
-                        } else {
-                            timerController.stop()
-                            isTimerStop = true
-                        }
+                        timerController.stop()
+                        isTimerStop = true
                     }
                 }, label: {
                     Label(isTimerStop ? "START" : "STOP",systemImage: isTimerStop ? "play.fill" : "pause.fill")
