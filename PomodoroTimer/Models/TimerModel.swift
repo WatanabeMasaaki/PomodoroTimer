@@ -30,6 +30,9 @@ class TimerModel: ObservableObject {
     //通知関係
     @Published var showAlert: Bool = false
     
+    //集中タイムが終わった時これが1増える
+    @Published var completed: Int = 0
+    
     //オーディオ関係
     private let chime = try! AVAudioPlayer(data: NSDataAsset(name: "jihou-sine-3f")!.data)
     private let success = try! AVAudioPlayer(data: NSDataAsset(name: "success")!.data)
@@ -69,12 +72,17 @@ class TimerModel: ObservableObject {
                 self.cycleStr = String(format: "%d", cycle)
                 self.isFocus = ((self.count % ((focusTime + restTime) * 60)) < focusTime * 60) ? true : false
                             
+                //remainCountはタイマーに表示されている残り時間の秒数
                 let remainCount = self.isFocus ?
-                focusTime * 60  - (self.count % ((focusTime + restTime) * 60)) :
+                focusTime * 60 - (self.count % ((focusTime + restTime) * 60)) :
                 restTime * 60 - (self.count % ((focusTime + restTime) * 60) - focusTime * 60)
                 
                 if remainCount == 4 {
                     self.playChime()
+                }
+                
+                if remainCount == restTime * 60 {
+                    self.completed += 1
                 }
                 
                 let secRemain = remainCount % 60

@@ -37,10 +37,14 @@ struct TimerView: View {
                 Text("\(timerController.cycleStr)サイクル目")
                     .font(.system(size: 40, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
-                    .padding(.bottom, -5)
-                Text(timerController.isFocus ? "勉強" : "休憩")
+                    .padding(.bottom, 10)
+                
+                CycleProgressView(cycles: cycles, completed: timerController.completed)
+                
+                Text(timerController.isFocus ? "集中" : "休憩")
                     .font(.system(size: 50, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
+                    .padding(.top, 10)
                 
                 Text(isTimerStarted ?
                      "\(timerController.minStr):\(timerController.secStr)" :

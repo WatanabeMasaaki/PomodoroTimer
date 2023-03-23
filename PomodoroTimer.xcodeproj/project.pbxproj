@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B86212EF29C9B33E00D3438F /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86212EE29C9B33E00D3438F /* MenuView.swift */; };
+		B86212F129CC454100D3438F /* CycleProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86212F029CC454100D3438F /* CycleProgressView.swift */; };
 		B894B32829C17C6C007D5C38 /* PomodoroTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B32729C17C6C007D5C38 /* PomodoroTimerApp.swift */; };
 		B894B32A29C17C6C007D5C38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B32929C17C6C007D5C38 /* ContentView.swift */; };
 		B894B32C29C17C6E007D5C38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B894B32B29C17C6E007D5C38 /* Assets.xcassets */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		B86212EE29C9B33E00D3438F /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		B86212F029CC454100D3438F /* CycleProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CycleProgressView.swift; sourceTree = "<group>"; };
 		B894B32429C17C6C007D5C38 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B894B32729C17C6C007D5C38 /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		B894B32929C17C6C007D5C38 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -83,6 +85,7 @@
 				B894B33729C2016D007D5C38 /* SettingView.swift */,
 				B894B33A29C20D31007D5C38 /* TimerView.swift */,
 				B86212EE29C9B33E00D3438F /* MenuView.swift */,
+				B86212F029CC454100D3438F /* CycleProgressView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				B894B32A29C17C6C007D5C38 /* ContentView.swift in Sources */,
 				B894B35A29C31A7B007D5C38 /* TimerModel.swift in Sources */,
 				B894B33B29C20D31007D5C38 /* TimerView.swift in Sources */,
+				B86212F129CC454100D3438F /* CycleProgressView.swift in Sources */,
 				B894B32829C17C6C007D5C38 /* PomodoroTimerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
