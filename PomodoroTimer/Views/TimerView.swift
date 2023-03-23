@@ -39,8 +39,6 @@ struct TimerView: View {
                     .foregroundColor(Color.black)
                     .padding(.bottom, 10)
                 
-                CycleProgressView(cycles: cycles, completed: timerController.completed)
-                
                 Text(timerController.isFocus ? "集中" : "休憩")
                     .font(.system(size: 50, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
@@ -52,6 +50,45 @@ struct TimerView: View {
                 .font(.system(size: 100, weight: .semibold, design: .rounded))
                     .foregroundColor(Color.black)
                     .padding()
+                
+                //○でサイクルの達成数を可視化
+                if (cycles < 10) {
+                    HStack {
+                        ForEach (0 ..< cycles) { i in
+                            if(i < timerController.completed) {
+                                Image(systemName: "circle.fill")
+                            } else {
+                                Image(systemName: "circle")
+                            }
+                            
+                        }
+                    }
+                    .foregroundColor(.black)
+                } else {
+                    VStack {
+                        HStack {
+                            ForEach (0 ..< 10) { i in
+                                if(i < timerController.completed) {
+                                    Image(systemName: "circle.fill")
+                                } else {
+                                    Image(systemName: "circle")
+                                }
+                            }
+                        }
+                        .padding(.bottom, 10)
+                        HStack {
+                            ForEach (10 ..< cycles) { i in
+                                if(i < timerController.completed) {
+                                    Image(systemName: "circle.fill")
+                                } else {
+                                    Image(systemName: "circle")
+                                }
+                            }
+
+                        }
+                    }
+                    .foregroundColor(.black)
+                }
                 
                 Spacer()
                 
@@ -93,6 +130,6 @@ struct TimerView: View {
 
 struct TimerView_Previews: PreviewProvider {
     static var previews: some View {
-        TimerView(focusTime: 1, restTime: 1, cycles: 2)
+        TimerView(focusTime: 1, restTime: 1, cycles: 15)
     }
 }

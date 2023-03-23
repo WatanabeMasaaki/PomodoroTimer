@@ -81,7 +81,7 @@ class TimerModel: ObservableObject {
                     self.playChime()
                 }
                 
-                if remainCount == restTime * 60 {
+                if (remainCount == restTime * 60 && !self.isFocus) {
                     self.completed += 1
                 }
                 
