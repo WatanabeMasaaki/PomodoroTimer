@@ -6,8 +6,18 @@
 //
 
 import SwiftUI
+import Foundation
 
 struct MenuView: View {
+    //日付
+    @State var date = Date()
+    @State var dateText = ""
+    private let df = DateFormatter()
+    init() {
+        df.dateFormat = "MM月dd日(E) HH:mm"
+        df.locale = Locale(identifier: "ja_jp")
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -17,13 +27,18 @@ struct MenuView: View {
                 VStack {
                     HStack {
                         Spacer()
-                        Text("3月21日")
+                        
+                        //日付表示
+                        Text(dateText.isEmpty ? "\(df.string(from: date))" : dateText)
                             .font(.system(size: 25, weight: .semibold, design: .rounded))
                             .foregroundColor(.black)
-                        Text("19:00")
-                            .font(.system(size: 25, weight: .semibold, design: .rounded))
-                            .padding(.trailing, 25)
-                            .foregroundColor(.black)
+                            .padding(.trailing, 20)
+                            .onAppear {
+                                Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+                                    self.date = Date()
+                                    dateText = "\(df.string(from: date))"
+                                }
+                            }
                     }
                     
                     Spacer()
