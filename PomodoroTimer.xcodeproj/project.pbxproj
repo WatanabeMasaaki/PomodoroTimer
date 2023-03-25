@@ -15,6 +15,9 @@
 		B894B33829C2016D007D5C38 /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B33729C2016D007D5C38 /* SettingView.swift */; };
 		B894B33B29C20D31007D5C38 /* TimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B33A29C20D31007D5C38 /* TimerView.swift */; };
 		B894B35A29C31A7B007D5C38 /* TimerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B35929C31A7B007D5C38 /* TimerModel.swift */; };
+		B8F7E79129CEF71500B14AFB /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B8F7E79029CEF71500B14AFB /* GoogleService-Info.plist */; };
+		B8F7E79429CEF7C200B14AFB /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = B8F7E79329CEF7C200B14AFB /* FirebaseAnalytics */; };
+		B8F7E79629CEF7C200B14AFB /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B8F7E79529CEF7C200B14AFB /* FirebaseAnalyticsSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +30,7 @@
 		B894B33729C2016D007D5C38 /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		B894B33A29C20D31007D5C38 /* TimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerView.swift; sourceTree = "<group>"; };
 		B894B35929C31A7B007D5C38 /* TimerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerModel.swift; sourceTree = "<group>"; };
+		B8F7E79029CEF71500B14AFB /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,6 +38,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8F7E79629CEF7C200B14AFB /* FirebaseAnalyticsSwift in Frameworks */,
+				B8F7E79429CEF7C200B14AFB /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,6 +68,7 @@
 				B894B35829C31A6F007D5C38 /* Models */,
 				B894B33929C20172007D5C38 /* Views */,
 				B894B32729C17C6C007D5C38 /* PomodoroTimerApp.swift */,
+				B8F7E79029CEF71500B14AFB /* GoogleService-Info.plist */,
 				B894B32B29C17C6E007D5C38 /* Assets.xcassets */,
 				B894B32D29C17C6E007D5C38 /* Preview Content */,
 			);
@@ -111,6 +118,10 @@
 			dependencies = (
 			);
 			name = PomodoroTimer;
+			packageProductDependencies = (
+				B8F7E79329CEF7C200B14AFB /* FirebaseAnalytics */,
+				B8F7E79529CEF7C200B14AFB /* FirebaseAnalyticsSwift */,
+			);
 			productName = PomodoroTimer;
 			productReference = B894B32429C17C6C007D5C38 /* PomodoroTimer.app */;
 			productType = "com.apple.product-type.application";
@@ -139,6 +150,9 @@
 				Base,
 			);
 			mainGroup = B894B31B29C17C6C007D5C38;
+			packageReferences = (
+				B8F7E79229CEF7C200B14AFB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			productRefGroup = B894B32529C17C6C007D5C38 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -154,6 +168,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B894B32F29C17C6E007D5C38 /* Preview Assets.xcassets in Resources */,
+				B8F7E79129CEF71500B14AFB /* GoogleService-Info.plist in Resources */,
 				B894B32C29C17C6E007D5C38 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -371,6 +386,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B8F7E79229CEF7C200B14AFB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B8F7E79329CEF7C200B14AFB /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8F7E79229CEF7C200B14AFB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		B8F7E79529CEF7C200B14AFB /* FirebaseAnalyticsSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8F7E79229CEF7C200B14AFB /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B894B31C29C17C6C007D5C38 /* Project object */;
 }
