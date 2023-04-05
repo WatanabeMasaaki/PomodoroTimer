@@ -24,6 +24,9 @@ struct TimerView: View {
     //「戻る」を押した瞬間タイマーが走っていたか(true)止まっていたか(false)
     @State var pTimerStatus = false
     
+    //勉強時間
+    @AppStorage("total_time") var totalTime = 0
+    
     func startTimer(){
         timerController.start(focusTime: focusTime, restTime: restTime, cycles: cycles)
         isTimerStop = false
@@ -135,12 +138,14 @@ struct TimerView: View {
         .alert("よくがんばりました！！", isPresented: $timerController.showAlert, actions: {
             Button("OK", role: .cancel) {
                 timerController.stopSuccess()
+                totalTime += focusTime * cycles
                 dismiss()
             }
         })
         .alert("本当に戻りますか？", isPresented: $alertBack, actions: {
             Button("戻る", role: .destructive, action: {
                 timerController.timer = nil
+                totalTime += focusTime * timerController.completed
                 dismiss()
             })
             Button("キャンセル", role: .cancel, action: {
