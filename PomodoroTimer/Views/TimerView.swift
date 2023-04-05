@@ -21,6 +21,22 @@ struct TimerView: View {
     //「戻る」を押した時にアラートを表示させるトリガー
     @State var alertBack = false
     
+    //「戻る」を押した瞬間タイマーが走っていたか(true)止まっていたか(false)
+    @State var pTimerStatus = false
+    
+    func startTimer(){
+        timerController.start(focusTime: focusTime, restTime: restTime, cycles: cycles)
+        isTimerStop = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            isTimerStarted = true
+        }
+    }
+    
+    func stopTimer(){
+        timerController.stop()
+        isTimerStop = true
+    }
+    
     var body: some View {
         ZStack {
             Color("BackgroundColor")
@@ -29,9 +45,13 @@ struct TimerView: View {
             VStack(alignment: .center) {
                 
                 Button(action: {
+                    if(timerController.timer == nil){
+                        self.pTimerStatus = false
+                    } else {
+                        self.pTimerStatus = true
+                    }
                     alertBack = true
-                    timerController.stop()
-                    isTimerStop = true
+                    stopTimer()
                 }, label: {
                     Text("戻る")
                 })
@@ -98,14 +118,9 @@ struct TimerView: View {
                 
                 Button(action: {
                     if(timerController.timer == nil){
-                        timerController.start(focusTime: focusTime, restTime: restTime, cycles: cycles)
-                        isTimerStop = false
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                            isTimerStarted = true
-                        }
+                        startTimer()
                     } else {
-                        timerController.stop()
-                        isTimerStop = true
+                        stopTimer()
                     }
                 }, label: {
                     Label(isTimerStop ? "START" : "STOP",systemImage: isTimerStop ? "play.fill" : "pause.fill")
@@ -124,13 +139,15 @@ struct TimerView: View {
             }
         })
         .alert("本当に戻りますか？", isPresented: $alertBack, actions: {
-            
             Button("戻る", role: .destructive, action: {
                 timerController.timer = nil
                 dismiss()
             })
             Button("キャンセル", role: .cancel, action: {
                 alertBack = false
+                if(pTimerStatus){
+                    startTimer()
+                }
             })
         }, message: {
             Text("\(focusTime * timerController.completed)分の集中時間が記録されます")
