@@ -18,6 +18,9 @@ struct TimerView: View {
     //このisTimerStartedは初めてスタートボタンが押されて以降trueになる
     @State var isTimerStarted = false
     
+    //「戻る」を押した時にアラートを表示させるトリガー
+    @State var alertBack = false
+    
     var body: some View {
         ZStack {
             Color("BackgroundColor")
@@ -26,8 +29,7 @@ struct TimerView: View {
             VStack(alignment: .center) {
                 
                 Button(action: {
-                    timerController.timer = nil
-                    dismiss()
+                    alertBack = true
                 }, label: {
                     Text("戻る")
                 })
@@ -118,6 +120,17 @@ struct TimerView: View {
                 timerController.stopSuccess()
                 dismiss()
             }
+        })
+        .alert("本当に戻りますか？", isPresented: $alertBack, actions: {
+            Button("戻る", role: .destructive, action: {
+                timerController.timer = nil
+                dismiss()
+            })
+            Button("キャンセル", role: .cancel, action: {
+                alertBack = false
+            })
+        }, message: {
+            Text("\(focusTime * timerController.completed)分の集中時間が記録されます")
         })
         .onAppear {
             UIApplication.shared.isIdleTimerDisabled = true

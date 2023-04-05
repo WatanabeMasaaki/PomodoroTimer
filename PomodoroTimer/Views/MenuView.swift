@@ -18,6 +18,9 @@ struct MenuView: View {
         df.locale = Locale(identifier: "ja_jp")
     }
     
+    //勉強時間
+    @AppStorage("total_time") var totalTime = 0
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -46,7 +49,7 @@ struct MenuView: View {
                     Text("総集中時間")
                         .font(.system(size: 40, weight: .semibold, design: .rounded))
                         .foregroundColor(.black)
-                    Text("100")
+                    Text("\(totalTime)")
                         .font(.system(size: 70, weight: .semibold, design: .rounded))
                         .foregroundColor(.blue)
                     Text("min")
