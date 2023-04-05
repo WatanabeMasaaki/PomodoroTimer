@@ -30,6 +30,8 @@ struct TimerView: View {
                 
                 Button(action: {
                     alertBack = true
+                    timerController.stop()
+                    isTimerStop = true
                 }, label: {
                     Text("戻る")
                 })
@@ -122,6 +124,7 @@ struct TimerView: View {
             }
         })
         .alert("本当に戻りますか？", isPresented: $alertBack, actions: {
+            
             Button("戻る", role: .destructive, action: {
                 timerController.timer = nil
                 dismiss()
