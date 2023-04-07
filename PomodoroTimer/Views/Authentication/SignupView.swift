@@ -33,7 +33,7 @@ struct SignupView: View {
                 
                 Button(action: {
                     withAnimation{
-                        currentShowingView = "login"
+                        self.currentShowingView = "login"
                     }
                 }, label: {
                     Text("アカウントを持っている方はこちら")
