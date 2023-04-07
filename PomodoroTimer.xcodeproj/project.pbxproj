@@ -11,6 +11,7 @@
 		B877EF9B29E008120094AD3B /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B877EF9A29E008120094AD3B /* FirebaseAuth */; };
 		B877EF9D29E008120094AD3B /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B877EF9C29E008120094AD3B /* FirebaseFirestore */; };
 		B877EFA129E009D30094AD3B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877EFA029E009D30094AD3B /* LoginView.swift */; };
+		B877EFA629E07FEB0094AD3B /* DefineNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877EFA529E07FEB0094AD3B /* DefineNameView.swift */; };
 		B894B32829C17C6C007D5C38 /* PomodoroTimerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B32729C17C6C007D5C38 /* PomodoroTimerApp.swift */; };
 		B894B32A29C17C6C007D5C38 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B894B32929C17C6C007D5C38 /* ContentView.swift */; };
 		B894B32C29C17C6E007D5C38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B894B32B29C17C6E007D5C38 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		B86212EE29C9B33E00D3438F /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		B877EFA029E009D30094AD3B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		B877EFA529E07FEB0094AD3B /* DefineNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefineNameView.swift; sourceTree = "<group>"; };
 		B894B32429C17C6C007D5C38 /* PomodoroTimer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PomodoroTimer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B894B32729C17C6C007D5C38 /* PomodoroTimerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroTimerApp.swift; sourceTree = "<group>"; };
 		B894B32929C17C6C007D5C38 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXGroup;
 			children = (
 				B877EFA029E009D30094AD3B /* LoginView.swift */,
+				B877EFA529E07FEB0094AD3B /* DefineNameView.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
@@ -197,6 +200,7 @@
 				B894B35A29C31A7B007D5C38 /* TimerModel.swift in Sources */,
 				B894B33B29C20D31007D5C38 /* TimerView.swift in Sources */,
 				B877EFA129E009D30094AD3B /* LoginView.swift in Sources */,
+				B877EFA629E07FEB0094AD3B /* DefineNameView.swift in Sources */,
 				B894B32829C17C6C007D5C38 /* PomodoroTimerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

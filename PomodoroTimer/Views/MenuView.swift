@@ -7,8 +7,10 @@
 
 import SwiftUI
 import Foundation
+import FirebaseAuth
 
 struct MenuView: View {
+    @AppStorage("uid") var userID: String = ""
     //日付
     @State var date = Date()
     @State var dateText = ""
@@ -28,6 +30,28 @@ struct MenuView: View {
                     .ignoresSafeArea()
                 
                 VStack {
+                    Text("\(userID)さん、こんにちは")
+                        .font(.system(size: 20, weight: .semibold, design: .rounded))
+                        .foregroundColor(.black)
+                        .padding(.leading, 20)
+                    
+                    Button(action: {
+                        let firebaseAuth = Auth.auth()
+                        do {
+                            try firebaseAuth.signOut()
+                            withAnimation {
+                                userID = ""
+                            }
+                        } catch let signOutError as NSError {
+                            print("Error signing out: %@", signOutError)
+                        }
+                      
+                    }, label: {
+                        Text("ログアウト")
+                            .font(.system(size: 20, weight: .semibold, design: .rounded))
+                            .padding(.leading, 20)
+                    })
+                    
                     HStack {
                         Spacer()
                         

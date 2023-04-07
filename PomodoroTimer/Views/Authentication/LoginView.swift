@@ -15,6 +15,8 @@ struct LoginView: View {
     @State var email = ""
     @State var password = ""
     
+    @State private var defineUserName: Bool = false
+    
     var body: some View {
         ZStack{
             Color("BackgroundColor")
@@ -43,7 +45,7 @@ struct LoginView: View {
                     }
                     
                 }, label: {
-                    Text("アカウントを持ってい\(currentShowingView == "login" ? "る" : "ない")方はこちら")
+                    Text("アカウントを持ってい\(currentShowingView == "login" ? "ない" : "る")方はこちら")
                 })
                 
                 
@@ -60,6 +62,9 @@ struct LoginView: View {
                 })
             }
         }
+//        .sheet(isPresented: $defineUserName, content: {
+//            DefineNameView()
+//        })
     }
     
     func login() {
@@ -79,7 +84,19 @@ struct LoginView: View {
     }
     
     func signup() {
-        
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if let authResult = authResult {
+                print(authResult.user.uid)
+                userID = authResult.user.uid
+//                defineUserName = true
+            }
+        }
     }
 }
 
