@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import FirebaseAuth
 
 struct LoginView: View {
     @State var currentShowingView: String = "login"
+    @AppStorage("uid") var userID: String = ""
     
     @State var email = ""
     @State var password = ""
@@ -44,11 +46,12 @@ struct LoginView: View {
                     Text("アカウントを持ってい\(currentShowingView == "login" ? "る" : "ない")方はこちら")
                 })
                 
-                Text(self.currentShowingView)
                 
                 Spacer()
                 
-                Button(action: {}, label: {
+                Button(action: {
+                    self.currentShowingView == "login" ? login() : signup()
+                }, label: {
                     Text(currentShowingView == "login" ? "ログイン" : "登録")
                         .font(.title)
                         .frame(width: 300, height: 70)
@@ -57,6 +60,26 @@ struct LoginView: View {
                 })
             }
         }
+    }
+    
+    func login() {
+        Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            if let authResult = authResult {
+                print(authResult.user.uid)
+                withAnimation {
+                    userID = authResult.user.uid
+                }
+            }
+        }
+    }
+    
+    func signup() {
+        
     }
 }
 
